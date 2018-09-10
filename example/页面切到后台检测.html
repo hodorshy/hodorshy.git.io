@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>检测页面是否被隐藏</title>
+    <style>
+        .loading {
+            width: 80px;
+            height: 40px;
+            margin: 0 auto;
+            margin-top: 100px;
+            display: none;
+        }
+
+        .loading span {
+            display: inline-block;
+            width: 8px;
+            height: 100%;
+            border-radius: 4px;
+            background: lightgreen;
+            -webkit-animation: load 1s ease infinite;
+        }
+
+        @-webkit-keyframes load {
+
+            0%,
+            100% {
+                height: 40px;
+                background: lightgreen;
+            }
+
+            50% {
+                height: 70px;
+                margin: -15px 0;
+                background: lightblue;
+            }
+        }
+
+        .loading span:nth-child(2) {
+            -webkit-animation-delay: 0.2s;
+        }
+
+        .loading span:nth-child(3) {
+            -webkit-animation-delay: 0.4s;
+        }
+
+        .loading span:nth-child(4) {
+            -webkit-animation-delay: 0.6s;
+        }
+
+        .loading span:nth-child(5) {
+            -webkit-animation-delay: 0.8s;
+        }
+        .active {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 id="t">页面切换聚焦失去焦点事件</h1>
+    <div class="loading">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <script>
+        // 对document.hidden做前缀处理
+        function getHiddenProp () {
+            var prefixes = [ 'webkit', 'moz', 'ms', 'o' ];
+
+            // if 'hidden' is natively supported just return it
+            if ( 'hidden' in document ) {
+                return 'hidden';
+            }
+
+            // otherwise loop over all the known prefixes until we find one
+            for ( var i = 0; i < prefixes.length; i++ ) {
+                if ( ( prefixes[ i ] + 'Hidden' ) in document ) {
+                    return prefixes[ i ] + 'Hidden';
+                }
+            }
+
+            // otherwise it's not supported
+            return null;
+        };
+
+        // 获取document.visibilityState属性
+        function getVisibilityState () {
+            var prefixes = [ 'webkit', 'moz', 'ms', 'o' ];
+            if ( 'visibilityState' in document ) {
+                return 'visibilityState';
+            }
+            for ( var i = 0; i < prefixes.length; i++ ) {
+                if ( ( prefixes [ i ] + 'VisibilityState' ) in document ) {
+                    return prefixes[ i ] + 'VisibilityState';
+                }
+            }
+
+            // otherwise it's not supported
+            return null;
+        };
+
+        let loading = document.querySelector( '.loading' ), timer;
+        function rmCl () {
+            console.log( 'rmCl' );
+            if ( 2 === flag ) {
+                flag = 1;
+                return;
+            }
+            loading.classList.add( 'active' );
+            window.clearTimeout( timer );
+            timer = window.setTimeout( function () {
+                console.log( 'remove' );
+                loading.classList.remove( 'active' );
+            }, 1000 );
+            flag = false;
+        }
+
+        // 给document添加事件
+        var visProp = getHiddenProp(), flag = 1;
+        if ( visProp ) {
+            var evtname = visProp.replace( /[H|h]idden/, '' ) + 'visibilitychange';
+            document.addEventListener( evtname, function () {
+                document.title = document [ getVisibilityState() ] + '状态';
+                if ( document[ getVisibilityState() ] === 'visible' ) {
+                    console.log( '回来了', flag );
+                    if ( flag ) {
+                        window.setTimeout( rmCl, 1000 );
+                    }
+                } else {
+                    console.log( '离开了' );
+
+                    // window.clearTimeout( timer1 );
+                    flag = 2;
+                }
+            }, false );
+        };
+
+        window.onload = function () {
+
+            window.setTimeout( function () {
+                window.setTimeout( rmCl, 2000 );
+            }, 0 );
+        };
+    </script>
+</body>
+
+</html>
