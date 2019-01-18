@@ -13,9 +13,9 @@
     var redirect_uri = 'https://hodorshy.github.io/login/index.html'
 
     if ( window.location.href === 'https://hodorshy.github.io/login/index.html' ) {
-        window.location.href = HREF
-            .replace( /{ id }/, client_id )
-            .replace( /{ url }/, redirect_uri )
+        window.location.href = ( HREF
+            .replace( /{id}/, client_id )
+            .replace( /{url}/, redirect_uri ) )
     }
 
     </script>
