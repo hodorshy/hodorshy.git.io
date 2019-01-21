@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+    <h1 id="code"></h1>
+
     <script>
     var HREF = 'https://github.com/login/oauth/authorize?client_id={id}&redirect_uri={url}';
     var client_id = '5741554784ddb3e77337';
@@ -16,6 +18,11 @@
         window.location.href = ( HREF
             .replace( /{id}/, client_id )
             .replace( /{url}/, redirect_uri ) )
+    } else {
+        var codeHtml = document.querySelector( '#code' )
+        var href = window.location.href;
+        var code = href.match( /\?code=(\d+)/ )[ 1 ]
+        code.innerText = code
     }
 
     </script>
