@@ -25,15 +25,15 @@
         var code = href.match( /\?code=([^&]+)/ )[ 1 ]
         code.innerText = code
 
-        axios.get( 'https://github.com/login/oauth/access_token', {
-            data: {
-                client_id: '5741554784ddb3e77337',
-                client_secret: 'client_secret',
-                code: code
-            }
-        } ).then( function ( data ) {
-            console.warn( 'data:', data )
-        } )
+        // axios.get( 'https://github.com/login/oauth/access_token', {
+        //     data: {
+        //         client_id: '5741554784ddb3e77337',
+        //         client_secret: 'client_secret',
+        //         code: code
+        //     }
+        // } ).then( function ( data ) {
+        //     console.warn( 'data:', data )
+        // } )
     }
 
     </script>
