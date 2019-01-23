@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <h1 id="code"></h1>
@@ -23,6 +24,14 @@
         var href = window.location.href;
         var code = href.match( /\?code=(\d+)/ )[ 1 ]
         code.innerText = code
+
+        axios.get( 'https://github.com/login/oauth/access_token', {
+            client_id: '5741554784ddb3e77337',
+            client_secret: 'client_secret',
+            code: code
+        } ).done( function ( data ) {
+            console.warn( 'data:', data )
+        } )
     }
 
     </script>
