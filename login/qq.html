@@ -30,7 +30,19 @@
         }
         codeHtml.innerText = code
 
-        console.log( 'code:', code )
+        console.log( 'code:', code, QC )
+
+        QC
+            .api( 'get_user_info', {} )
+            .success( function ( data ) {
+                console.log( 'data:', data )
+            } )
+            .error( function ( error ) {
+                console.log( 'error:', error )
+            } )
+            .complete( function ( e ) {
+                console.log( 'complete:', e )
+            } )
 
         // axios.get( 'https://github.com/login/oauth/access_token', {
         //     data: {
