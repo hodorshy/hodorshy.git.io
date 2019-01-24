@@ -27,7 +27,9 @@
         if ( code != null ) {
             code = code[ 1 ]
         }
-        code.innerText = code
+        codeHtml.innerText = code
+
+        console.log( 'code:', code )
 
         // axios.get( 'https://github.com/login/oauth/access_token', {
         //     data: {
