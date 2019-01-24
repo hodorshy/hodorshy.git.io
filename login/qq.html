@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>GitHub login</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1 id="code"></h1>
+
+    <script>
+    var HREF = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=101549566&redirect_uri=https://hodorshy.github.io/login/qq.html&state=test';
+    var client_id = '5741554784ddb3e77337';
+    var redirect_uri = 'https://hodorshy.github.io/login/index.html'
+
+    if ( window.location.href === 'https://hodorshy.github.io/login/index.html' ) {
+        window.location.href = ( HREF
+            .replace( /{id}/, client_id )
+            .replace( /{url}/, redirect_uri ) )
+    } else {
+        var codeHtml = document.querySelector( '#code' )
+        var href = window.location.href;
+        var code = href.match( /\?code=([^&]+)/ )[ 1 ]
+        code.innerText = code
+
+        // axios.get( 'https://github.com/login/oauth/access_token', {
+        //     data: {
+        //         client_id: '5741554784ddb3e77337',
+        //         client_secret: 'client_secret',
+        //         code: code
+        //     }
+        // } ).then( function ( data ) {
+        //     console.warn( 'data:', data )
+        // } )
+    }
+
+    </script>
+</body>
+</html>
