@@ -22,7 +22,10 @@
     } else {
         var codeHtml = document.querySelector( '#code' )
         var href = window.location.href;
-        var code = href.match( /\?code=([^&]+)/ )[ 1 ]
+        var code = href.match( /\?code=([^&]+)/ )
+        if ( code != null ) {
+            code = code[ 1 ]
+        }
         code.innerText = code
 
         // axios.get( 'https://github.com/login/oauth/access_token', {
