@@ -17,8 +17,9 @@
 
     if ( window.location.href === 'https://hodorshy.github.io/login/index.html' ) {
         window.location.href = ( HREF
-            .replace( /{id}/, client_id )
-            .replace( /{url}/, redirect_uri ) )
+            // .replace( /{id}/, client_id )
+            // .replace( /{url}/, redirect_uri )
+        )
     } else {
         var codeHtml = document.querySelector( '#code' )
         var href = window.location.href;
